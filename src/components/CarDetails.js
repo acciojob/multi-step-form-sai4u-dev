@@ -24,7 +24,7 @@ function CarDetails({ car, setCar, nextStep, prevStep }) {
 
       <label htmlFor="price" className="text-2xl mt-4">Price: </label>
       <input
-        id="price"
+        id="car_price"
         className="bg-gray-400 text-black border-2 border-black"
         value={car.price}
         onChange={(e) => setCar({ ...car, price: e.target.value })}
