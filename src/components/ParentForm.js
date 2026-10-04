@@ -1,77 +1,113 @@
-import React, { useState } from 'react'
-import CarDetails from './CarDetails'
-import CardDetails from './CardDetails'
-import Error from './Error'
+import React, { useState } from "react";
+import CarDetails from "./CarDetails";
+import CardDetails from "./CardDetails";
+import Error from "./Error";
 
 function ParentForm() {
-    const [step, setStep] = useState(1)
-    const [user, setUser] = useState({ firstName: "", lastName: "" })
-    const [car, setCar] = useState({ model: "", price: "" })
-    const [card, setCard] = useState({ info: "", expiry: "" })
+  const [step, setStep] = useState(1);
 
-    const [firstNameError, setFirstNameError] = useState(false)
-    const [lastNameError, setLastNameError] = useState(false)
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+  });
 
-    const nextStep = () => setStep((prev) => prev + 1)
-    const prevStep = () => setStep((prev) => prev - 1)
+  const [car, setCar] = useState({
+    model: "",
+    price: "",
+  });
 
-    function handleUserSubmit(e) {
-        e.preventDefault();
-        nextStep(); 
+  const [card, setCard] = useState({
+    info: "",
+    expiry: "",
+  });
+
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+
+  const nextStep = () => setStep((prev) => prev + 1);
+  const prevStep = () => setStep((prev) => prev - 1);
+
+  function handleUserSubmit(e) {
+    e.preventDefault();
+
+    const firstNameEmpty = user.firstName.trim() === "";
+    const lastNameEmpty = user.lastName.trim() === "";
+
+    setFirstNameError(firstNameEmpty);
+    setLastNameError(lastNameEmpty);
+
+    if (!firstNameEmpty && !lastNameEmpty) {
+      nextStep();
     }
+  }
 
-    return (
-        <div className='h-[100vh] w-[100vw] bg-gray-900 text-white flex justify-center items-center'>
-            {step === 1 && (
-                <form
-                    id="step1"
-                    onSubmit={handleUserSubmit}
-                    className='w-[40vw] border-2 border-white h-[70vh] flex justify-center items-center flex-col'
-                >
-                    <h2 className='text-xl mb-7'>User Details</h2>
+  return (
+    <div className="h-[100vh] w-[100vw] bg-gray-900 text-white flex justify-center items-center">
+      {step === 1 && (
+        <form
+          id="step1"
+          onSubmit={handleUserSubmit}
+          className="w-[40vw] border-2 border-white h-[70vh] flex justify-center items-center flex-col"
+        >
+          <h2 className="text-xl mb-7">User Details</h2>
 
-                    <label htmlFor="first_name" className='text-2xl'>First Name: </label>
-                    <input
-                        id="first_name"
-                        className='bg-gray-400 text-black border-2 border-black'
-                        value={user.firstName}
-                        onChange={(e) => setUser({ ...user, firstName: e.target.value })}
-                    />
-                    {firstNameError && <Error type="First Name" />}
+          <label htmlFor="first_name" className="text-2xl">
+            First Name:
+          </label>
 
-                    <label htmlFor="last_name" className='text-2xl mt-4'>Last Name: </label>
-                    <input
-                        id="last_name"
-                        className='bg-gray-400 text-black border-2 border-black'
-                        value={user.lastName}
-                        onChange={(e) => setUser({ ...user, lastName: e.target.value })}
-                    />
-                    {lastNameError && <Error type="Last Name" />}
+          <input
+            id="first_name"
+            className="bg-gray-400 text-black border-2 border-black"
+            value={user.firstName}
+            onChange={(e) =>
+              setUser({ ...user, firstName: e.target.value })
+            }
+          />
 
-                    <button type='submit' className='mt-6 bg-green-500 px-6 py-2 rounded hover:bg-green-700'>
-                        Next
-                    </button>
-                </form>
-            )}
+          {firstNameError && <Error type="First Name" />}
 
-            {step === 2 && (
-                <CarDetails
-                    car={car}
-                    setCar={setCar}
-                    nextStep={nextStep}
-                    prevStep={prevStep}
-                />
-            )}
+          <label htmlFor="last_name" className="text-2xl mt-4">
+            Last Name:
+          </label>
 
-            {step === 3 && (
-                <CardDetails
-                    card={card}
-                    setCard={setCard}
-                    prevStep={prevStep}
-                />
-            )}
-        </div>
-    )
+          <input
+            id="last_name"
+            className="bg-gray-400 text-black border-2 border-black"
+            value={user.lastName}
+            onChange={(e) =>
+              setUser({ ...user, lastName: e.target.value })
+            }
+          />
+
+          {lastNameError && <Error type="Last Name" />}
+
+          <button
+            type="submit"
+            className="mt-6 bg-green-500 px-6 py-2 rounded hover:bg-green-700"
+          >
+            Next
+          </button>
+        </form>
+      )}
+
+      {step === 2 && (
+        <CarDetails
+          car={car}
+          setCar={setCar}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+
+      {step === 3 && (
+        <CardDetails
+          card={card}
+          setCard={setCard}
+          prevStep={prevStep}
+        />
+      )}
+    </div>
+  );
 }
 
-export default ParentForm
+export default ParentForm;
