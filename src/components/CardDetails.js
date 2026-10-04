@@ -1,3 +1,4 @@
+
 import React from "react";
 
 function CardDetails({ card, setCard, prevStep }) {
@@ -13,27 +14,41 @@ function CardDetails({ card, setCard, prevStep }) {
     >
       <h2 className="text-xl mb-7">Card Details</h2>
 
-      <label htmlFor="info" className="text-2xl">Card Info: </label>
+      <label htmlFor="card_info" className="text-2xl">
+        Card Info:
+      </label>
+
       <input
-        id="info"
+        id="card_info"
         className="bg-gray-400 text-black border-2 border-black"
         value={card.info}
         onChange={(e) => setCard({ ...card, info: e.target.value })}
       />
 
-      <label htmlFor="expiry" className="text-2xl mt-4">Expiry: </label>
+      <label htmlFor="expiry_date" className="text-2xl mt-4">
+        Expiry:
+      </label>
+
       <input
-        id="expiry"
+        id="expiry_date"
         className="bg-gray-400 text-black border-2 border-black"
         value={card.expiry}
         onChange={(e) => setCard({ ...card, expiry: e.target.value })}
       />
 
       <div className="mt-6 flex gap-4">
-        <button type="button" onClick={prevStep} className="bg-red-500 px-6 py-2 rounded hover:bg-red-700">
+        <button
+          type="button"
+          onClick={prevStep}
+          className="bg-red-500 px-6 py-2 rounded hover:bg-red-700"
+        >
           Back
         </button>
-        <button type="submit" className="bg-green-500 px-6 py-2 rounded hover:bg-green-700">
+
+        <button
+          type="submit"
+          className="bg-green-500 px-6 py-2 rounded hover:bg-green-700"
+        >
           Submit
         </button>
       </div>
